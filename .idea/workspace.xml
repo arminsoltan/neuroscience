@@ -11,13 +11,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="85cb7ca7-eaca-43f1-9d64-6cf1809b184d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/lif.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/neuron/constant.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ex3.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ex3.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/network/network.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simulate/constant.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/lif.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/lif.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neuron/constant.py" beforeDir="false" afterPath="$PROJECT_DIR$/neuron/constant.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/neuron/neuron.py" beforeDir="false" afterPath="$PROJECT_DIR$/neuron/neuron.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/phases/phase3.py" beforeDir="false" afterPath="$PROJECT_DIR$/phases/phase3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/population/population.py" beforeDir="false" afterPath="$PROJECT_DIR$/population/population.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simulate/simulate.py" beforeDir="false" afterPath="$PROJECT_DIR$/simulate/simulate.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/synapse/synapse.py" beforeDir="false" afterPath="$PROJECT_DIR$/synapse/synapse.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -90,7 +93,9 @@
       <option name="presentableId" value="Default" />
       <updated>1589807784962</updated>
       <workItem from="1589807794626" duration="15870000" />
-      <workItem from="1589956405845" duration="4147000" />
+      <workItem from="1589956405845" duration="9705000" />
+      <workItem from="1590042870047" duration="22650000" />
+      <workItem from="1590243585994" duration="10084000" />
     </task>
     <servers />
   </component>
