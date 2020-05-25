@@ -11,6 +11,7 @@ class Population:
         self._create_neurons()
         self.synapse = Synapse()
         self.spike_neurons = list()
+        self.layers = list()
 
     def _create_neurons(self):
         for i in range(self.exc_count):
@@ -37,3 +38,13 @@ class Population:
                     post_synaptic_neuron[0].last_pre_synaptic_spike_time = current_time
         for neuron in self.spike_neurons:
             self.synapse.stdp(neuron)
+
+    def add_layer(self, layer_size):
+        count = 0
+        for layer in self.layers:
+            count += len(layer)
+        layer = list()
+        for i in range(layer_size):
+            layer.append(self.neurons[i + count])
+        self.layers.append(layer)
+
