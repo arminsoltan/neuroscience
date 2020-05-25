@@ -18,3 +18,7 @@ class Network:
         for population in self.populations:
             population.update_voltage(current_time)
             population.update_weight(current_time)
+
+    def connect(self, population1, population2):
+        for neuron1 in population1:
+            for neuron2 in population2:
