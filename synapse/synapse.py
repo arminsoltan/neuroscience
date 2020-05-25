@@ -33,9 +33,9 @@ class Synapse:
                     maximum_post_synaptic_time = post_synaptic_neuron.last_spike_time
             delta_t = maximum_post_synaptic_time - neuron.last_spike_time
             delta_w = self._add_delta_t_delta_w(neuron, delta_t)
-            for i in range(len(self.adjacency[neuron])):
-                self.adjacency[neuron][i][1] = max(self.adjacency[neuron][i][1] + delta_w, 0)
-        elif neuron in self.reverse_adjacency:
+            for post_synaptic_neuron in self.adjacency[neuron].keys():
+                self.adjacency[neuron][post_synaptic_neuron] += delta_w
+        else:
             maximum_pre_synaptic_time = 0
             pre_synaptic_neurons = list()
             for pre_synaptic_neuron in self.adjacency.keys():

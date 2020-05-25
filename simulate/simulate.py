@@ -19,4 +19,3 @@ class Simulation:
 
         for t in range(1, self.total_time):
             self.network.update_voltage(t)
-

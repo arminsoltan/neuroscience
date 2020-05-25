@@ -34,8 +34,8 @@ class Population:
     def update_weight(self, current_time):
         for neuron in self.spike_neurons:
             if neuron in self.synapse.adjacency.keys():
-                for post_synaptic_neuron in self.synapse.adjacency[neuron]:
-                    post_synaptic_neuron[0].last_pre_synaptic_spike_time = current_time
+                for post_synaptic_neuron in self.synapse.adjacency[neuron].keys():
+                    post_synaptic_neuron.last_pre_synaptic_spike_time = current_time
         for neuron in self.spike_neurons:
             self.synapse.stdp(neuron)
 
@@ -55,4 +55,3 @@ class Population:
             for pre_synaptic_neuron in pre_layer:
                 for post_synaptic_neuron in post_layer:
                     self.synapse.connect(pre_synaptic_neuron, post_synaptic_neuron)
-

@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 from network.network import Network
 from simulate.constant import TOTAL_TIME, DT
+import random
+
 
 def task_1():
     simulation = Simulation(1, [2], [0])
@@ -30,11 +32,37 @@ def task_1():
     plt.show()
 
 
-def task2():
-    network = Network(1, [10], [0])
+def task_2():
+    network = Network(1, [12], [0])
     population = network.populations[0]
-    population.add_layer(8)
+    population.add_layer(10)
     population.add_layer(2)
     population.connect_layer_fully()
-    for t in TOTAL_TIME:
+    for neuron in population.neurons:
+        neuron.set_current(0, TOTAL_TIME, 0)
+    encode(population, [1, 0, 1, 1, 1, 0, 0, 0, 0, 0])
+    neuron1 = population.neurons[0]
+    neuron11 = population.neurons[11]
+    for t in range(TOTAL_TIME):
         network.update_voltage(t)
+        print(population.synapse.adjacency[neuron1])
+
+    fig, ax = plt.subplots(1, 1, figsize=(20, 15))
+    time = np.arange(0, TOTAL_TIME)
+    for neuron in population.neurons:
+        ax.plot(time, neuron.voltage)
+    plt.show()
+
+
+def encode(population, pattern):
+    neurons = population.neurons
+    interval_time = int(TOTAL_TIME / 10)
+    interval_times = [[(i - 1) * interval_time, i * interval_time] for i in range(1, 10)]
+    for i in range(len(interval_times)):
+        if i % 2 == 0:
+            for index, neuron in enumerate(neurons):
+                if pattern[i] == 1:
+                    neuron.set_current(interval_times[i][0], interval_times[i][1], 1)
+        else:
+            index = random.randint(0, 10)
+            neurons[index].set_current(interval_times[i][0], interval_times[i][1], 1)
