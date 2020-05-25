@@ -1,7 +1,8 @@
 from simulate.simulate import Simulation
 import matplotlib.pyplot as plt
 import numpy as np
-
+from network.network import Network
+from simulate.constant import TOTAL_TIME, DT
 
 def task_1():
     simulation = Simulation(1, [2], [0])
@@ -27,3 +28,13 @@ def task_1():
     print(delta_w)
     # ax1.scatter(delta_t, delta_w)
     plt.show()
+
+
+def task2():
+    network = Network(1, [10], [0])
+    population = network.populations[0]
+    population.add_layer(8)
+    population.add_layer(2)
+    population.connect_layer_fully()
+    for t in TOTAL_TIME:
+        network.update_voltage(t)
