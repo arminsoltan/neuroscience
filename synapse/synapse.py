@@ -15,8 +15,8 @@ class Synapse:
         self.weight = np.zeros(self.total_time)
         self.tau_positive = 2
         self.tau_negative = 4
-        self.amplitude_positive = 0.4
-        self.amplitude_negative = -0.4
+        self.amplitude_positive = 4
+        self.amplitude_negative = -0.2
         self.delta_w = 0
         self.delta_t = 0
 
@@ -27,26 +27,16 @@ class Synapse:
 
     def stdp(self, neuron):
         if neuron in self.adjacency.keys():
-            maximum_post_synaptic_time = 0
             for post_synaptic_neuron in self.adjacency[neuron].keys():
-                if maximum_post_synaptic_time <= post_synaptic_neuron.last_spike_time:
-                    maximum_post_synaptic_time = post_synaptic_neuron.last_spike_time
-            delta_t = maximum_post_synaptic_time - neuron.last_spike_time
-            delta_w = self._add_delta_t_delta_w(neuron, delta_t)
-            for post_synaptic_neuron in self.adjacency[neuron].keys():
+                delta_t = post_synaptic_neuron.last_spike_time - neuron.last_spike_time
+                delta_w = self._add_delta_t_delta_w(neuron, delta_t)
                 self.adjacency[neuron][post_synaptic_neuron] += delta_w
         else:
-            maximum_pre_synaptic_time = 0
-            pre_synaptic_neurons = list()
             for pre_synaptic_neuron in self.adjacency.keys():
                 if neuron in self.adjacency[pre_synaptic_neuron].keys():
-                    if maximum_pre_synaptic_time <= pre_synaptic_neuron.last_spike_time:
-                        maximum_pre_synaptic_time = pre_synaptic_neuron.last_spike_time
-                    pre_synaptic_neurons.append(pre_synaptic_neuron)
-            delta_t = neuron.last_spike_time - maximum_pre_synaptic_time
-            delta_w = self._add_delta_t_delta_w(neuron, delta_t)
-            for pre_synaptic_neuron in pre_synaptic_neurons:
-                self.adjacency[pre_synaptic_neuron][neuron] += delta_w
+                    delta_t = neuron.last_spike_time - pre_synaptic_neuron.last_spike_time
+                    delta_w = self._add_delta_t_delta_w(neuron, delta_t)
+                    self.adjacency[pre_synaptic_neuron][neuron] += delta_w
 
     def _add_delta_t_delta_w(self, neuron, delta_t):
         if delta_t > 0:

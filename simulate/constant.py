@@ -4,4 +4,4 @@ params = {
 }
 
 DT = 0.1
-TOTAL_TIME = int(40 * (1/DT))
+TOTAL_TIME = int(50 * (1/DT))

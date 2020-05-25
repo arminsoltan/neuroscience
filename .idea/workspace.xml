@@ -12,11 +12,9 @@
   <component name="ChangeListManager">
     <list default="true" id="85cb7ca7-eaca-43f1-9d64-6cf1809b184d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/network/network.py" beforeDir="false" afterPath="$PROJECT_DIR$/network/network.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/phases/phase3.py" beforeDir="false" afterPath="$PROJECT_DIR$/phases/phase3.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/population/population.py" beforeDir="false" afterPath="$PROJECT_DIR$/population/population.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simulate/simulate.py" beforeDir="false" afterPath="$PROJECT_DIR$/simulate/simulate.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simulate/constant.py" beforeDir="false" afterPath="$PROJECT_DIR$/simulate/constant.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/synapse/synapse.py" beforeDir="false" afterPath="$PROJECT_DIR$/synapse/synapse.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -93,7 +91,7 @@
       <workItem from="1590042870047" duration="22650000" />
       <workItem from="1590243585994" duration="11284000" />
       <workItem from="1590345077863" duration="613000" />
-      <workItem from="1590391251137" duration="17552000" />
+      <workItem from="1590391251137" duration="27131000" />
     </task>
     <servers />
   </component>

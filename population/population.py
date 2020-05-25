@@ -36,6 +36,7 @@ class Population:
             if neuron in self.synapse.adjacency.keys():
                 for post_synaptic_neuron in self.synapse.adjacency[neuron].keys():
                     post_synaptic_neuron.last_pre_synaptic_spike_time = current_time
+                    post_synaptic_neuron.current[current_time:current_time + 3] = 5
         for neuron in self.spike_neurons:
             self.synapse.stdp(neuron)
 
