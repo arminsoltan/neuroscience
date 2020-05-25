@@ -47,8 +47,6 @@ def task_2():
     for neuron in population.neurons:
         neuron.set_current(0, TOTAL_TIME, 0)
     encode(population, [1, 0, 1, 1, 1, 0, 0, 0, 0, 0])
-    neuron1 = population.neurons[0]
-    neuron11 = population.neurons[11]
     for t in range(TOTAL_TIME):
         network.update_voltage(t)
     for neuron in population.neurons:
@@ -56,20 +54,13 @@ def task_2():
             for post_synaptic_neuron in population.synapse.adjacency[neuron].keys():
                 print(population.synapse.adjacency[neuron][post_synaptic_neuron], end=" ")
             print()
-    fig, ax = plt.subplots(1, 1, figsize=(20, 15))
-    time = np.arange(0, TOTAL_TIME)
-    neuron2 = population.neurons[1]
-    ax.plot(time, neuron1.voltage, color="green")
-    ax.plot(time, neuron2.voltage, color="orange")
-    ax.plot(time, neuron11.voltage, color="pink")
-    plt.show()
 
 
 def encode(population, pattern):
     neurons = population.neurons
     interval_time = int(TOTAL_TIME / 10)
     interval_times = [[(i - 1) * interval_time, i * interval_time] for i in range(1, 10)]
-    for i in range(len(interval_times) - 1):
+    for i in range(len(interval_times)):
         if i % 2 == 0:
             for index, neuron in enumerate(neurons):
                 if index < 10 and pattern[index] == 1:
@@ -77,3 +68,26 @@ def encode(population, pattern):
         else:
             index = random.randint(0, 9)
             neurons[index].set_current(interval_times[i][0], interval_times[i][1], 1)
+
+
+def task_3():
+    network = Network(1, [12], [1])
+    population = network.populations[0]
+    population.add_layer(10)
+    population.add_layer(3)
+    population.connect_layer_fully()
+    neuron_10 = population.neurons[10]
+    neuron_11 = population.neurons[11]
+    neuron_12 = population.neurons[12]
+    population.synapse.connect(neuron_12, neuron_10)
+    population.synapse.connect(neuron_12, neuron_11)
+    for neuron in population.neurons:
+        neuron.set_current(0, TOTAL_TIME, 0)
+    encode(population, [1, 0, 1, 1, 1, 0, 0, 0, 0, 0])
+    for t in range(TOTAL_TIME):
+        network.update_voltage(t)
+    for neuron in population.neurons:
+        if neuron in population.synapse.adjacency.keys():
+            for post_synaptic_neuron in population.synapse.adjacency[neuron].keys():
+                print(population.synapse.adjacency[neuron][post_synaptic_neuron], end=" ")
+            print()

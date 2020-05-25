@@ -18,6 +18,10 @@ class Population:
             neuron = Neuron('lif')
             neuron.set_current_randomly(0, TOTAL_TIME)
             self.neurons.append(neuron)
+        for i in range(self.inh_count):
+            neuron = Neuron('lif', 'inh')
+            neuron.set_current_randomly(0, TOTAL_TIME)
+            self.neurons.append(neuron)
 
     def fully_connected_one_way(self):
         for i in range(0, len(self.neurons)):
@@ -36,7 +40,10 @@ class Population:
             if neuron in self.synapse.adjacency.keys():
                 for post_synaptic_neuron in self.synapse.adjacency[neuron].keys():
                     post_synaptic_neuron.last_pre_synaptic_spike_time = current_time
-                    post_synaptic_neuron.current[current_time:current_time + 3] = 5
+                    if neuron.model == 'exc':
+                        post_synaptic_neuron.current[current_time + 5:current_time + 8] = 5
+                    else:
+                        post_synaptic_neuron.current[current_time: current_time + 3] = -5
         for neuron in self.spike_neurons:
             self.synapse.stdp(neuron)
 

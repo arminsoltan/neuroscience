@@ -9,7 +9,8 @@ from simulate.constant import DT, TOTAL_TIME
 
 
 class Neuron:
-    def __init__(self, simulation_model):
+    def __init__(self, simulation_model, model="exc"):
+        self.model = model
         self.total_time = TOTAL_TIME
         self.voltage_rest = params['voltage_rest']
         self.voltage_reset = params['voltage_reset']
