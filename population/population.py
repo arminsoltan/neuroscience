@@ -48,3 +48,11 @@ class Population:
             layer.append(self.neurons[i + count])
         self.layers.append(layer)
 
+    def connect_layer_fully(self):
+        for i in range(1, len(self.layers)):
+            pre_layer = self.layers[i - 1]
+            post_layer = self.layers[i]
+            for pre_synaptic_neuron in pre_layer:
+                for post_synaptic_neuron in post_layer:
+                    self.synapse.connect(pre_synaptic_neuron, post_synaptic_neuron)
+
