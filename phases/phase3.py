@@ -46,28 +46,67 @@ def task_2():
     population.connect_layer_fully()
     for neuron in population.neurons:
         neuron.set_current(0, TOTAL_TIME, 0)
-    encode(population, [1, 0, 1, 1, 1, 0, 0, 0, 0, 0])
+    # encode(population, [1, 0, 1, 1, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 1, 1, 0])
+    encode(population, [1, 0, 1, 1, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 1, 1, 1, 0])
+    weights = dict()
+    pre_synaptic_neurons = population.neurons[:10]
+    post_synaptic_neurons = population.neurons[10:]
+    for pre_synaptic_neuron in pre_synaptic_neurons:
+        for post_synaptic_neuron in post_synaptic_neurons:
+            if pre_synaptic_neuron not in weights.keys():
+                weights[pre_synaptic_neuron] = dict()
+            weights[pre_synaptic_neuron][post_synaptic_neuron] = list()
     for t in range(TOTAL_TIME):
         network.update_voltage(t)
+        for pre_synaptic_neuron in pre_synaptic_neurons:
+            for post_synaptic_neuron in post_synaptic_neurons:
+                weights[pre_synaptic_neuron][post_synaptic_neuron].append(
+                    population.synapse.adjacency[pre_synaptic_neuron][post_synaptic_neuron]['weight'])
     for neuron in population.neurons:
         if neuron in population.synapse.adjacency.keys():
             for post_synaptic_neuron in population.synapse.adjacency[neuron].keys():
-                print(population.synapse.adjacency[neuron][post_synaptic_neuron], end=" ")
+                print(population.synapse.adjacency[neuron][post_synaptic_neuron]['weight'], end=" ")
             print()
+    # fig, ax = plt.subplots(1, 1, figsize=(50, 30))
+    # time = np.arange(0, TOTAL_TIME)
+    # ax.plot(time, population.neurons[0].voltage)
+    # ax.plot(time, population.neurons[10].voltage)
+    # plt.show()
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(50, 100))
+    time = np.arange(0, TOTAL_TIME)
+    for pre_synaptic_neuron in pre_synaptic_neurons:
+        for post_synaptic_neuron in post_synaptic_neurons:
+            ax1.plot(time, weights[pre_synaptic_neuron][post_synaptic_neuron])
+    # ax2.plot(time, population.neurons[0].voltage)
+    ax2.plot(time, population.neurons[11].voltage)
+    ax2.plot(time, population.neurons[10].voltage)
+    plt.show()
 
 
-def encode(population, pattern):
+def encode(population, pattern, pattern2=None):
     neurons = population.neurons
-    interval_time = int(TOTAL_TIME / 10)
-    interval_times = [[(i - 1) * interval_time, i * interval_time] for i in range(1, 10)]
-    for i in range(len(interval_times)):
+    interval_time = int(TOTAL_TIME / 14)
+    interval_times = [[(i - 1) * interval_time, i * interval_time] for i in range(1, 14)]
+    first_interval = interval_times[: len(interval_times) // 2]
+    second_interval = interval_times[len(interval_times) // 2 + 2:]
+    print(first_interval)
+    for i in range(len(first_interval)):
         if i % 2 == 0:
             for index, neuron in enumerate(neurons):
                 if index < 10 and pattern[index] == 1:
-                    neuron.set_current(interval_times[i][0], interval_times[i][1], 1)
-        else:
-            index = random.randint(0, 9)
-            neurons[index].set_current(interval_times[i][0], interval_times[i][1], 1)
+                    neuron.set_current(first_interval[i][0], first_interval[i][1], 1)
+        # else:
+        #     index = random.randint(0, 9)
+        #     neurons[index].set_current(first_interval[i][0], first_interval[i][1], 1)
+    if pattern2 is not None:
+        for i in range(len(second_interval)):
+            if i % 2 == 0:
+                for index, neuron in enumerate(neurons):
+                    if index < 10 and pattern2[index] == 1:
+                        neuron.set_current(second_interval[i][0], second_interval[i][1], 1.15)
+        # else:
+        #     index = random.randint(0, 9)
+        #     neurons[index].set_current(second_interval[i][0], second_interval[i][1], 1)
 
 
 def task_3():

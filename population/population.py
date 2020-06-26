@@ -1,6 +1,7 @@
 from neuron.neuron import Neuron
 from synapse.synapse import Synapse
 from simulate.constant import TOTAL_TIME
+import random
 
 
 class Population:
@@ -12,6 +13,7 @@ class Population:
         self.synapse = Synapse()
         self.spike_neurons = list()
         self.layers = list()
+        self.learn_method = "stdp"
 
     def _create_neurons(self):
         for i in range(self.exc_count):
@@ -41,11 +43,21 @@ class Population:
                 for post_synaptic_neuron in self.synapse.adjacency[neuron].keys():
                     post_synaptic_neuron.last_pre_synaptic_spike_time = current_time
                     if neuron.model == 'exc':
-                        post_synaptic_neuron.current[current_time + 5:current_time + 8] = 5
+                        post_synaptic_neuron.current[current_time + 5:current_time + 10] += 3.52 * self.synapse.adjacency[
+                            neuron][post_synaptic_neuron]['weight']
                     else:
-                        post_synaptic_neuron.current[current_time: current_time + 3] = -5
-        for neuron in self.spike_neurons:
-            self.synapse.stdp(neuron)
+                        post_synaptic_neuron.current[current_time: current_time + 3] -= 1.3 * \
+                                                                                        self.synapse.adjacency[neuron][
+                                                                                            post_synaptic_neuron][
+                                                                                            'weight']
+        if self.learn_method == "stdp":
+            for neuron in self.spike_neurons:
+                self.synapse.stdp(neuron)
+        elif self.learn_method == "rstdp":
+            # print(current_time)
+            for neuron in self.neurons:
+                self.synapse.rstdp(neuron, self.spike_neurons)
+
 
     def add_layer(self, layer_size):
         count = 0
@@ -63,3 +75,12 @@ class Population:
             for pre_synaptic_neuron in pre_layer:
                 for post_synaptic_neuron in post_layer:
                     self.synapse.connect(pre_synaptic_neuron, post_synaptic_neuron)
+
+    def connect_randomly(self, probability):
+        for neuron in self.neurons:
+            neuron_degree = int(probability * len(self.neurons))
+            post_synaptic_neuron_indexes = random.sample(range(0, len(self.neurons)), neuron_degree)
+            for index in post_synaptic_neuron_indexes:
+                post_synaptic_neuron = self.neurons[index]
+                if neuron != post_synaptic_neuron:
+                    self.synapse.connect(neuron, post_synaptic_neuron)

@@ -34,9 +34,6 @@ class Neuron:
         y = MinMaxScaler(feature_range=(-1, 1)).fit_transform(y.reshape(-1, 1)).reshape(-1)
         y = [5 * abs(x) for x in y]
         self.current[t1:t2] = y
-    #
-    # def connect(self, neurons):
-    #     self.synapse.connect(neurons)
 
     def update_voltage(self, current_time):
         self.simulation_model.compute_voltage(t=current_time)
